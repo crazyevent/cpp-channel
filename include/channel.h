@@ -38,7 +38,7 @@ std::unique_ptr<T> make_unique(Args&& ...args)
 template<class T>
 struct _is_exception_safe :
   std::integral_constant<bool,
-    std::is_nothrow_copy_constructible<T>::value or
+    std::is_nothrow_copy_constructible<T>::value ||
     std::is_nothrow_move_constructible<T>::value>
 {};
 
@@ -49,7 +49,7 @@ struct _is_exception_safe :
 template<class T, std::size_t N>
 class _channel
 {
-static_assert(N < std::numeric_limits<std::size_t>::max(),
+static_assert(N < (std::numeric_limits<std::size_t>::max)(),
   "N must be strictly less than the largest possible size_t value");
 
 private:
@@ -248,7 +248,7 @@ template<class T, std::size_t N> class ochannel;
 template<class T, std::size_t N = 0>
 class channel
 {
-static_assert(N < std::numeric_limits<std::size_t>::max(),
+static_assert(N < (std::numeric_limits<std::size_t>::max)(),
   "N must be strictly less than the largest possible size_t value");
 
 private:
